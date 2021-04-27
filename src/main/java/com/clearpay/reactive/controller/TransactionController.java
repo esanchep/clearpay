@@ -44,6 +44,10 @@ public class TransactionController {
             log.error("The transaction amount is lesser than 1: {}", transaction.getAmount());
             return Mono.just(badRequest().body(new Response<>(BAD_REQUEST.value(), "The transaction amount is lesser than 1", null)));
         }
+        if (sourceWalletId == transaction.getDestinationWalletId()) {
+            log.error("Source wallet ({}) and destination wallet ({}) must not be equal", transaction.getAmount());
+            return Mono.just(badRequest().body(new Response<>(BAD_REQUEST.value(), "Source and destination wallets must not be equal", null)));
+        }
         return transactionService.addTransaction(sourceWalletId, transaction)
                 .map(addedTransaction ->
                         ok().body(new Response<>(OK.value(), OPERATION_SUCCESS, addedTransaction)))
