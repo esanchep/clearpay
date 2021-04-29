@@ -34,4 +34,4 @@ build/
 
 # Angular project
 !.gitignore
-**/src/main/resources/frontend/**
+**/node_modules/**
