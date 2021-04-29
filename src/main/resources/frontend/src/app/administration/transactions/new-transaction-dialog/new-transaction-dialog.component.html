@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>{{literal.title | translate}}</h2>
+
+<mat-dialog-content class="mat-typography">
+  <div class="new-transaction-content" [formGroup]="form">
+    <div class="form from-wallet">
+      <h3>{{literal.from | translate}}</h3>
+      <!-- SOURCE USER -->
+      <mat-form-field class="form-item" appearance="outline">
+        <mat-label>{{literal.user | translate}}</mat-label>
+        <input matInput type="text" [readonly]="true" formControlName="sourceUsername">
+      </mat-form-field>
+      <!-- SOURCE WALLET -->
+      <mat-form-field class="form-item" appearance="outline">
+        <mat-label>{{literal.wallet | translate}}</mat-label>
+        <input matInput type="text" [readonly]="true" formControlName="sourceWalletName">
+      </mat-form-field>
+      <!-- SOURCE AMOUNT -->
+      <div class="amount">
+        <mat-icon class="pre-input">arrow_right_alt</mat-icon>
+        <mat-form-field class="form-item" appearance="outline">
+          <mat-label>{{literal.amount | translate}}</mat-label>
+          <input matInput type="number" formControlName="amount" (input)="updateBalances()">
+          <mat-icon matSuffix> attach_money</mat-icon>
+          <mat-error *ngIf="hasError('amount', 'required')">
+            {{literal.fieldRequired | translate}}
+          </mat-error>
+          <mat-error *ngIf="hasError('amount', 'min')" class="overflow-error-text">
+            {{literal.invalidAmount | translate}}
+          </mat-error>
+        </mat-form-field>
+        <mat-icon class="post-input">arrow_right_alt</mat-icon>
+      </div>
+      <!-- SOURCE BALANCE -->
+      <mat-form-field class="form-item" appearance="outline">
+        <mat-label>{{literal.balance | translate}}</mat-label>
+        <input matInput type="number" [readonly]="true" formControlName="sourceBalance">
+      </mat-form-field>
+    </div>
+    <div class="form to-wallet">
+      <h3>{{literal.to | translate}}</h3>
+      <!-- DESTINATION USER -->
+      <mat-form-field class="form-item" appearance="outline">
+        <mat-label>{{literal.user | translate}}</mat-label>
+        <mat-select formControlName="destinationUserId" (selectionChange)="onDestinationUserSelected()">
+          <mat-option *ngFor="let eligibleUser of eligibleDestinationUsers" [value]="eligibleUser.id">{{eligibleUser.username}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="hasError('destinationUserId', 'required')">
+          {{literal.fieldRequired | translate}}
+        </mat-error>
+      </mat-form-field>
+      <!-- DESTINATION WALLET -->
+      <mat-form-field class="form-item" appearance="outline">
+        <mat-label>{{literal.wallet | translate}}</mat-label>
+        <mat-select formControlName="destinationWallet" (selectionChange)="onDestinationWalletSelected($event)">
+          <mat-option *ngFor="let eligibleWallet of eligibleDestinationWallets" [value]="eligibleWallet">{{eligibleWallet.alias}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="hasError('destinationWallet', 'required')">
+          {{literal.fieldRequired | translate}}
+        </mat-error>
+      </mat-form-field>
+      <!-- DESTINATION BALANCE -->
+      <mat-form-field class="form-item" appearance="outline">
+        <mat-label>{{literal.balance | translate}}</mat-label>
+        <input matInput type="number" [readonly]="true" formControlName="destinationBalance">
+      </mat-form-field>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>{{literal.cancel | translate}}</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="getTransaction()" [disabled]="!isValidForm()">{{literal.add | translate}}</button>
+</mat-dialog-actions>

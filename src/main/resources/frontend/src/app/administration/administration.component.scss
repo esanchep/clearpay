@@ -1,0 +1,29 @@
+$gap: 20px;
+
+h1 {
+  font-weight: bold;
+}
+
+.grid {
+  display: grid;
+  width: 100%;
+  height: calc(100% - #{$gap});
+  row-gap: $gap;
+  column-gap: $gap;
+  grid-template-rows: 35% 65%;
+  grid-template-areas:
+    "users wallets"
+    "transactions transactions";
+
+  .users {
+    grid-area: users;
+  }
+
+  .wallets {
+    grid-area: wallets;
+  }
+
+  .transactions {
+    grid-area: transactions;
+  }
+}
