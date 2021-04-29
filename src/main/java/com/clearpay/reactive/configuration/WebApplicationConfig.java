@@ -9,6 +9,8 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
 import org.springframework.web.reactive.resource.PathResourceResolver;
 import reactor.core.publisher.Mono;
 
+import static reactor.core.publisher.Mono.just;
+
 @Configuration
 public class WebApplicationConfig implements WebFluxConfigurer {
 
@@ -22,8 +24,7 @@ public class WebApplicationConfig implements WebFluxConfigurer {
                     @Override
                     protected Mono<Resource> getResource(String resourcePath, Resource location) {
                         Resource requestedResource = location.createRelative(resourcePath);
-
-                        return Mono.just(requestedResource.exists() && requestedResource.isReadable() ? requestedResource
+                        return just(requestedResource.exists() && requestedResource.isReadable() ? requestedResource
                                 : new ClassPathResource("/public/index.html"));
                     }
                 });

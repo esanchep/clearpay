@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import static reactor.core.publisher.Mono.error;
+
 @Slf4j
 @Service("transactionService")
 public class TransactionService {
@@ -31,9 +33,10 @@ public class TransactionService {
     @Transactional
     public Mono<Transaction> addTransaction(String sourceWalletId, Transaction transaction) {
         return updateSourceWalletBalance(sourceWalletId, transaction.getAmount())
-                .switchIfEmpty(Mono.error(new RuntimeException("Error updating source wallet")))
-                .flatMap(wallet -> updateDestinationWalletBalance(transaction.getDestinationWalletId(), transaction.getAmount()))
-                .switchIfEmpty(Mono.error(new RuntimeException("Error updating destination wallet")))
+                .switchIfEmpty(error(new RuntimeException("Error updating source wallet")))
+                .flatMap(wallet ->
+                        updateDestinationWalletBalance(transaction.getDestinationWalletId(), transaction.getAmount()))
+                .switchIfEmpty(error(new RuntimeException("Error updating destination wallet")))
                 .flatMap(wallet -> {
                     transaction.setSourceWalletId(sourceWalletId);
                     return transactionRepository.save(transaction);
