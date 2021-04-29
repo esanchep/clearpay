@@ -1,0 +1,54 @@
+.new-transaction-content {
+  display: flex;
+
+  .from-wallet,
+  .to-wallet {
+    display: flex;
+    flex-direction: column;
+
+    .form-item {
+      width: 225px;
+      margin-bottom: 10px;
+
+      .overflow-error-text {
+        display: contents;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .from-wallet {
+    padding-right: 150px;
+    position: relative;
+
+    .amount {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      right: calc(0px - (168px / 2));
+      bottom: 0;
+
+      .pre-input,
+      .post-input {
+        padding-bottom: 21px;
+      }
+
+      .pre-input {
+        margin-right: 10px;
+      }
+
+      .mat-form-field {
+        width: 150px;
+        background-color: white;
+      }
+
+      .post-input {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .to-wallet {
+    padding-left: 100px;
+  }
+}

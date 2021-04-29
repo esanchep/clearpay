@@ -1,0 +1,46 @@
+{
+  "app": {
+    "title": "clearpay"
+  },
+  "common": {
+    "balance": "Balance",
+    "new-transaction": "New transaction",
+    "from": "From",
+    "amount": "Amount",
+    "to": "To",
+    "comment": "Comment"
+  },
+  "administration": {
+    "title": "Administration panel",
+    "users": {
+      "title": "Users",
+      "username": "Username",
+      "name": "Name",
+      "surname": "Surname",
+      "error-getting-users": "Error getting users"
+    },
+    "wallets": {
+      "title": "Wallets",
+      "alias": "Alias",
+      "error-getting-wallets": "Error getting wallets"
+    },
+    "transactions": {
+      "title": "Latest transactions",
+      "date": "Date",
+      "sourceWallet": "Source Wallet",
+      "destinationWallet": "Destination Wallet",
+      "error-getting-transactions": "Error getting transactions"
+    },
+    "new-transaction": {
+      "user": "User",
+      "wallet": "Wallet",
+      "cancel": "Cancel",
+      "add": "Add",
+      "field-required": "This field is required",
+      "invalid-amount": "Must be greater than 0",
+      "transaction-has-been-successfully-added": "Transaction has been successfully added",
+      "error-getting-wallets": "Error getting wallets",
+      "error-adding-new-transaction": "Error adding new transaction"
+    }
+  }
+}
